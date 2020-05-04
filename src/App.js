@@ -26,7 +26,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todoList,
+      todoLists: todoLists
     }
   }
   
@@ -37,6 +37,7 @@ class App extends React.Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
+        <TodoList todoLists = {this.state.todoLists}/>
       </div>
     );
   }
