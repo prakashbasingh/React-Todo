@@ -9,8 +9,14 @@ class TodoForm extends   React.Component {
         this.state = {
             keyword: ''
 
-        }
+        };
     }
+    handleChanges = e => {
+        this.setState ({
+            keyword: e.target.value
+        },//() => console.log(this.state.keyword)
+        );
+    };
 
 
 
@@ -38,3 +44,4 @@ class TodoForm extends   React.Component {
 
 
 }
+export default TodoForm
