@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 
 import TodoForm from './components/TodoForm'
+import TodoList from './components/TodoList'
 
 
 const todoLists = [
@@ -17,9 +18,6 @@ const todoLists = [
   }
 ];
 
-
-
-
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -27,24 +25,57 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todoLists//todoLists: todoLists,
+      todoLists,//todoLists: todoLists,
     }
   }
+
+  addTask = taskName => {
+    const newTask = {
+      name: taskName,
+      id: Date.now(),
+      completed: false
+    };
+    this.setState({
+      todoLists: [...this.state.todoLists, newTask]
+    })
+  }
+
+  toggleTask = clickedId  => {
+    const updatedTodoLists = this.state.todoLists.map((taskTog) =>{
+      if (taskTog.id === clickedId){
+        return{...taskTog, completed: !taskTog.completed,
+        };
+      } else {
+        return taskTog;
+      }
+    })
+    this.setState({
+      todoLists: updatedTodoLists
+    })
+  };
   
+  
+  clearCompletedTasks = (event) => {
+    event.preventDefault()
+    const clearCompleted = this.state.todoLists.filter((taskComplete) => {
+      if (taskComplete.completed === false){
+        return taskComplete
+      }
+    })
+    this.setState({
+      todoLists: clearCompleted
+    })
+  };
   
   
   
   render() {
     return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
-        <div>
-          <TodoForm />
-
-
-        </div>
-     
-        {/* <TodoList todoLists = {this.state.todoLists}/> */}
+      <div style = {{padding: '1rem',margin: '10rem',border: '2px solid orange'  }}>
+        <h2>Welcome to your Todo App!</h2>     
+          <TodoForm addTask = {this.addTask} clearCompletedTasks = {this.clearCompletedTasks}/>
+    
+          <TodoList todoLists = {this.state.todoLists} toggleTask = {this.toggleTask} />
       </div>
     );
   }

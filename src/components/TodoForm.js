@@ -17,19 +17,29 @@ class TodoForm extends   React.Component {
         },//() => console.log(this.state.keyword)
         );
     };
+    submitForm = e => {
+        e.preventDefault()
+        this.props.addTask(this.state.keyword);
+        this.setState({
+            keyword: ''
+        });
+    }
 
 
 
     render() {
         return (
+            
             <form onSubmit = {this.submitForm}>
                 <input  onChange = {this.handleChanges}
                         type = 'text'
                         name = 'task'
                         value = {this.state.keyword}
                         />
-                <button> Add Todo </button>
-                <button> Clear Completed </button>
+                <button style = {{backgroundColor: 'orange', margin: '5px', height: '25px',}}> Add Task </button>
+                <button style = {{backgroundColor: 'orange', margin: '5px', height: '25px',}}
+                        onClick = {this.props.clearCompletedTasks}>Clear Completed Task(s)
+            </button>
 
             </form>
 
