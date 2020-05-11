@@ -8,12 +8,12 @@ import TodoList from './components/TodoList'
 const todoLists = [
   {
     task: 'Organize Garage',
-    id: 1528817077286,
+    id: Date.now(),
     completed: false
   },
   {
     task: 'Bake Cookies',
-    id: 1528817084358,
+    id: Date.now(),
     completed: false
   }
 ];
@@ -25,6 +25,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      
       todoLists,//todoLists: todoLists,
     }
   }
@@ -41,7 +42,7 @@ class App extends React.Component {
   }
 
   toggleTask = clickedId  => {
-    const updatedTodoLists = this.state.todoLists.map((taskTog) =>{
+    const updatedTodoLists = this.state.todoLists.map(taskTog =>{
       if (taskTog.id === clickedId){
         return{...taskTog, completed: !taskTog.completed,
         };
@@ -57,7 +58,7 @@ class App extends React.Component {
   
   clearCompletedTasks = (event) => {
     event.preventDefault()
-    const clearCompleted = this.state.todoLists.filter((taskComplete) => {
+    const clearCompleted = this.state.todoLists.filter(taskComplete => {
       if (taskComplete.completed === false){
         return taskComplete
       }
@@ -72,7 +73,8 @@ class App extends React.Component {
   render() {
     return (
       <div style = {{padding: '1rem',margin: '10rem',border: '2px solid orange'  }}>
-        <h2>Welcome to your Todo App!</h2>     
+        <h2 style = {{textAlign: 'center', backgroundColor: 'lime', borderRadius: '2rem', height: '35px'}}>
+                  Welcome to your Todo App!</h2>     
           <TodoForm addTask = {this.addTask} clearCompletedTasks = {this.clearCompletedTasks}/>
     
           <TodoList todoLists = {this.state.todoLists} toggleTask = {this.toggleTask} />
